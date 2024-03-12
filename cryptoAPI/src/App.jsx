@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import CoinInfo from "./Components/CoinInfo"; // Adjust the import path as necessary
 import viteLogo from '/vite.svg';
 import './App.css';
 
@@ -21,7 +22,7 @@ function App() {
         const data = await response.json();
         setList(data);
       } catch (error) {
-        console.error('Error fetching data: ', error);
+        console.error('Error fetching data:', error);
       }
     };
 
@@ -34,7 +35,12 @@ function App() {
       <ul>
         {list && Object.entries(list.Data).map(([key, value]) => 
           value.PlatformType === "blockchain" ? (
-            <li key={key}>{value.FullName}</li>
+            <CoinInfo
+              key={value.Symbol}
+              image={value.ImageUrl}
+              name={value.CoinName}
+              symbol={value.Symbol}
+            />
           ) : null
         )}
       </ul>
