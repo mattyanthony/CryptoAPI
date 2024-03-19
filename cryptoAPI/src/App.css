@@ -40,3 +40,40 @@
 .read-the-docs {
   color: #888;
 }
+
+body {
+  background: black;
+  color: white;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.icons {
+  padding-right: 10px;
+  width: 30px;
+  height: 30px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 25px 50px 75px 30px;
+}
+
+li.main-list {
+  padding: 25px;
+  border-bottom: solid 3px white;
+  font-size: larger;
+}
+
+.whole-page {
+  padding: 50px;
+  text-align: center;
+  background: black;
+  color: white;
+}
+
+.tab {
+  display: inline-block;
+  margin-left: 75px;
+}
