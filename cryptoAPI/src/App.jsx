@@ -7,6 +7,8 @@ const API_KEY = import.meta.env.VITE_APP_API_KEY;
 
 function App() {
   const [list, setList] = useState(null);
+  const [filteredResults, setFilteredResults] = useState([]);
+  const [searchInput, setSearchInput] = useState("");
 
   useEffect(() => {
     const fetchAllCoinData = async () => {
@@ -29,20 +31,50 @@ function App() {
     fetchAllCoinData().catch(console.error);
   }, []);
 
+  const searchItems = searchValue => {
+    setSearchInput(searchValue);
+    if (searchValue !== "") {
+      const filteredData = Object.entries(list?.Data || {}).filter(([key, value]) =>
+        value.CoinName.toLowerCase().includes(searchValue.toLowerCase()) ||
+        value.Symbol.toLowerCase().includes(searchValue.toLowerCase())
+      ).reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
+
+      setFilteredResults(filteredData);
+    } else {
+      setFilteredResults(list?.Data);
+    }
+  };
+
   return (
     <div className="whole-page">
       <h1>My Crypto List</h1>
+      <input
+        type="text"
+        placeholder="Search..."
+        onChange={(inputString) => searchItems(inputString.target.value)}
+      />
       <ul>
-        {list && Object.entries(list.Data).map(([key, value]) => 
-          value.PlatformType === "blockchain" ? (
-            <CoinInfo
-              key={value.Symbol}
-              image={value.ImageUrl}
-              name={value.CoinName}
-              symbol={value.Symbol}
-            />
-          ) : null
-        )}
+        {searchInput.length > 0
+          ? Object.entries(filteredResults).map(([key, value]) =>
+              value.PlatformType === "blockchain" ? 
+              <CoinInfo
+                key={value.Symbol}
+                image={value.ImageUrl}
+                name={value.CoinName}
+                symbol={value.Symbol}
+              />
+              : null
+            )
+          : list && Object.entries(list.Data).map(([key, value]) => 
+              value.PlatformType === "blockchain" ? 
+              <CoinInfo
+                key={value.Symbol}
+                image={value.ImageUrl}
+                name={value.CoinName}
+                symbol={value.Symbol}
+              />
+              : null
+            )}
       </ul>
     </div>
   );
