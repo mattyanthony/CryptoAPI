@@ -77,3 +77,30 @@ li.main-list {
   display: inline-block;
   margin-left: 75px;
 }
+
+nav {
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  width: 100%;
+  background: #1d1f1d;
+  padding: 1em;
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: start;
+}
+
+nav ul li .home-link {
+  border: 1px dotted white;
+  background: #1d1f1d;
+  padding: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+/* Add more styling as needed */
